@@ -49,8 +49,7 @@ class TableViewController: UIViewController {
     }
 
 	/*
-	bbb
-bbb
+		baratjuk
 	*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
