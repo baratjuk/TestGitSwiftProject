@@ -50,6 +50,7 @@ class TableViewController: UIViewController {
 
 	/*
 		master
+		baratjuk
 	*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
