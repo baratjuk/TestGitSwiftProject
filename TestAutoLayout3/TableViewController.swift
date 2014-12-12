@@ -46,7 +46,8 @@ class TableViewController: UIViewController {
 		picturesModel?.onUpdate = {data in
 			self.tableView.data(data)
 		}
-		picturesModel?.selectData( NSPredicate())
+		//nil
+		picturesModel?.selectData( nil)
     }
 
     override func didReceiveMemoryWarning() {

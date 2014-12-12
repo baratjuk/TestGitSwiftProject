@@ -25,7 +25,7 @@ class PicturesModel: NSObject {
 		return _sharedInstance
 	}
 	
-	func selectData( predicate: NSPredicate) {
+	func selectData( predicate: NSPredicate?) {
 		let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 		let managedObjectContext = appDelegate.managedObjectContext!
 		
@@ -34,8 +34,9 @@ class PicturesModel: NSObject {
 		let fetchRequest = NSFetchRequest()
 		fetchRequest.entity = entity
 		fetchRequest.sortDescriptors = [sort]
-//		fetchRequest.predicate = predicate
-		
+		if predicate != nil {
+			fetchRequest.predicate = predicate
+		}
 		let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
 		aFetchedResultsController.delegate = self
 		
