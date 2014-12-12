@@ -48,6 +48,9 @@ class TableViewController: UIViewController {
 		picturesModel?.selectData( nil)
     }
 
+	/*
+	bbb
+	*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 		
