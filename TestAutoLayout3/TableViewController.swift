@@ -49,6 +49,7 @@ class TableViewController: UIViewController {
     }
 
 	/*
+		bar1
 		master
 		baratjuk
 	*/
