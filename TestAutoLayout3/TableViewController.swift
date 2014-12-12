@@ -41,8 +41,6 @@ class TableViewController: UIViewController {
 			} else if parameters is Picture {
 				self.picturesModel?.deletePicture(parameters as Picture)
 			}
-			
-			
 		}
 		
 		picturesModel?.onUpdate = {data in
@@ -51,9 +49,6 @@ class TableViewController: UIViewController {
 		picturesModel?.selectData( nil)
     }
 
-	/*
-		baratjuk(baratjuk_2)
-	*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 		
