@@ -23,9 +23,6 @@ class TableViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		/*
-		master
-		*/
 		tableView.onAction = { parameters in
 			
 			if parameters is AddTableViewCell {
@@ -48,7 +45,6 @@ class TableViewController: UIViewController {
 		picturesModel?.onUpdate = {data in
 			self.tableView.data(data)
 		}
-		//nil
 		picturesModel?.selectData( nil)
     }
 
