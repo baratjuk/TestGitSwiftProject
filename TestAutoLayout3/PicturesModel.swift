@@ -12,6 +12,8 @@ import CoreData
 private let _sharedInstance = PicturesModel()
 
 class PicturesModel: NSObject {
+	let photoSize:CGFloat = 43.0
+	let bigPhotoSize:CGFloat = 86.0
 	
 	var fetchedResultsController: NSFetchedResultsController?
 	var editPicture:Picture?
@@ -52,16 +54,16 @@ class PicturesModel: NSObject {
 		let picture = NSEntityDescription.insertNewObjectForEntityForName("Picture", inManagedObjectContext: managedObjectContext) as Picture
 		picture.date = NSDate()
 		picture.name = "123"
-		picture.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( 43.0, 43.0)))
-		picture.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( 86.0, 86.0)))
+		picture.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( photoSize, photoSize)))
+		picture.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
 		save()
 	}
 	
 	func edit(image:UIImage?, name:NSString) {
 		editPicture?.name = name
 		if image != nil {
-			editPicture?.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( 43.0, 43.0)))
-			editPicture?.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( 86.0, 86.0)))
+			editPicture?.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( photoSize, photoSize)))
+			editPicture?.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
 		}
 		save()
 	}
