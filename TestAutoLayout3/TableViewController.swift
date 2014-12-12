@@ -24,9 +24,7 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		/*
-		baratjuk
-			stash
-			stash
+		master
 		*/
 		tableView.onAction = { parameters in
 			
