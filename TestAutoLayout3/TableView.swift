@@ -50,4 +50,12 @@ extension TableView: UITableViewDataSource {
 }
 
 extension TableView: UITableViewDelegate {
+	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
+	}
+	
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		var picture = mData[indexPath.row] as Picture
+		self.onAction!( parameters: picture)
+	}
 }

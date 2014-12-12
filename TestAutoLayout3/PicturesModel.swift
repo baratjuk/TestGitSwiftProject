@@ -69,6 +69,12 @@ class PicturesModel: NSObject {
 		save()
 	}
 	
+	func deletePicture(picture:Picture) {
+		let managedObjectContext = context()
+		managedObjectContext.deleteObject(picture)
+		save()
+	}
+
 	func context() -> NSManagedObjectContext! {
 		return fetchedResultsController?.managedObjectContext
 	}

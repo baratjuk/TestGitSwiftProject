@@ -23,8 +23,10 @@ class TableViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		picturesModel = PicturesModel.sharedInstance
+
 		tableView.onAction = { parameters in
-			
 			if parameters is AddTableViewCell {
 				let vc = UIImagePickerController()
 				if(false) {
@@ -36,12 +38,13 @@ class TableViewController: UIViewController {
 				let vc = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsViewController") as DetailsViewController
 				self.picturesModel?.editPicture = (parameters as LabelTableViewCell).picture
 				self.presentViewController(vc, animated: true, completion: nil)
+			} else if parameters is Picture {
+				self.picturesModel?.deletePicture(parameters as Picture)
 			}
 			
 			
 		}
 		
-		picturesModel = PicturesModel.sharedInstance
 		picturesModel?.onUpdate = {data in
 			self.tableView.data(data)
 		}
