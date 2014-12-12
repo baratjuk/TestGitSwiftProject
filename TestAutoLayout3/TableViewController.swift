@@ -23,7 +23,9 @@ class TableViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+		/*
+		master
+		*/
 		tableView.onAction = { parameters in
 			
 			if parameters is AddTableViewCell {
@@ -46,7 +48,8 @@ class TableViewController: UIViewController {
 		picturesModel?.onUpdate = {data in
 			self.tableView.data(data)
 		}
-		picturesModel?.selectData( NSPredicate())
+		//nil
+		picturesModel?.selectData( nil)
     }
 
     override func didReceiveMemoryWarning() {
