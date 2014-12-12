@@ -23,7 +23,11 @@ class TableViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+		/*
+
+		stash
+stash
+*/
 		tableView.onAction = { parameters in
 			
 			if parameters is AddTableViewCell {
