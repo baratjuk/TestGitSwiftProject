@@ -49,8 +49,11 @@ class TableViewController: UIViewController {
     }
 
 	/*
+<<<<<<< HEAD
 		baratjuk(baratjuk)
+=======
 		bar1(bar1)
+>>>>>>> bar1
 	*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
