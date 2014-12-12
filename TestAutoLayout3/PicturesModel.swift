@@ -29,7 +29,7 @@ class PicturesModel: NSObject {
 		let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 		let managedObjectContext = appDelegate.managedObjectContext!
 		
-		let entity = NSEntityDescription.entityForName("Picture", inManagedObjectContext: managedObjectContext)
+		let entity = NSEntityDescription.entityForName( NSStringFromClass(Picture), inManagedObjectContext: managedObjectContext)
 		let sort = NSSortDescriptor(key: "date", ascending: true)
 		let fetchRequest = NSFetchRequest()
 		fetchRequest.entity = entity
@@ -51,9 +51,9 @@ class PicturesModel: NSObject {
 	
 	func insert(image:UIImage) {
 		let managedObjectContext = context()
-		let picture = NSEntityDescription.insertNewObjectForEntityForName("Picture", inManagedObjectContext: managedObjectContext) as Picture
+		let picture = NSEntityDescription.insertNewObjectForEntityForName( NSStringFromClass(Picture), inManagedObjectContext: managedObjectContext) as Picture
 		picture.date = NSDate()
-		picture.name = "123"
+		picture.name = ""
 		picture.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( photoSize, photoSize)))
 		picture.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
 		save()
