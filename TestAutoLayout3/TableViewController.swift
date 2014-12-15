@@ -12,41 +12,41 @@ class TableViewController: UIViewController {
 	@IBOutlet weak var tableView: TableView!
 	
 	override init() {
+		picturesModel = PicturesModel.sharedInstance
 		super.init()
 	}
 
 	required init(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
+		picturesModel = PicturesModel.sharedInstance
+		super.init(coder: aDecoder)
 	}
 	
-	var picturesModel:PicturesModel?
+	var picturesModel:PicturesModel
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		picturesModel = PicturesModel.sharedInstance
-
-		tableView.onAction = { parameters in
-			if parameters is AddTableViewCell {
+	
+		tableView.onAction = {(parameters:TableActions) -> () in
+			switch(parameters.type) {
+			case TableActions.ActionType.Add:
 				let vc = UIImagePickerController()
 				if(false) {
 					vc.sourceType = UIImagePickerControllerSourceType.Camera;
 				}
 				vc.delegate = self
 				self.presentViewController(vc, animated: true, completion: nil)
-			} else if parameters is LabelTableViewCell {
+			case TableActions.ActionType.Delete:
+				self.picturesModel.deletePicture(parameters.picture!)
+			case TableActions.ActionType.Picture:
 				let vc = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsViewController") as DetailsViewController
-				self.picturesModel?.editPicture = (parameters as LabelTableViewCell).picture
+				self.picturesModel.editPicture = parameters.picture
 				self.presentViewController(vc, animated: true, completion: nil)
-			} else if parameters is Picture {
-				self.picturesModel?.deletePicture(parameters as Picture)
 			}
 		}
-		
-		picturesModel?.onUpdate = {data in
+		picturesModel.onUpdate = {(data:[Picture]) -> () in
 			self.tableView.data(data)
 		}
-		picturesModel?.selectData( nil)
+		picturesModel.selectData( nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +57,7 @@ class TableViewController: UIViewController {
 
 extension TableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 	func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-		picturesModel?.insert(image)
+		picturesModel.insert(image)
 		dismissViewControllerAnimated(true, completion:nil)
 	}
 	

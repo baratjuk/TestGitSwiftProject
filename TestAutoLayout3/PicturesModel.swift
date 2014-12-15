@@ -12,14 +12,15 @@ import CoreData
 private let _sharedInstance = PicturesModel()
 
 class PicturesModel: NSObject {
+	typealias OnUpdate = (data:[Picture]) -> ()
+
 	let photoSize:CGFloat = 43.0
 	let bigPhotoSize:CGFloat = 86.0
 	
-	var fetchedResultsController: NSFetchedResultsController?
 	var editPicture:Picture?
-	
-	typealias OnUpdate = (data:[AnyObject]) -> ()
 	var onUpdate : OnUpdate?
+	
+	private var fetchedResultsController: NSFetchedResultsController?
 	
 	class var sharedInstance : PicturesModel {
 		return _sharedInstance
@@ -47,7 +48,7 @@ class PicturesModel: NSObject {
 			println("fetch error: \(e!.localizedDescription)")
 			abort();
 		}
-		onUpdate!( data: data()!)
+		onUpdate!( data: data())
 	}
 	
 	func insert(image:UIImage) {
@@ -75,11 +76,11 @@ class PicturesModel: NSObject {
 		save()
 	}
 
-	func context() -> NSManagedObjectContext! {
+	private func context() -> NSManagedObjectContext! {
 		return fetchedResultsController?.managedObjectContext
 	}
 	
-	func save() {
+	private func save() {
 		let managedObjectContext = context()
 		var e: NSError?
 		if !managedObjectContext.save(&e) {
@@ -88,8 +89,8 @@ class PicturesModel: NSObject {
 		}
 	}
 	
-	func data() -> [AnyObject]? {
-		return fetchedResultsController?.fetchedObjects
+	private func data() -> [Picture] {
+		return fetchedResultsController?.fetchedObjects as [Picture]
 	}
 	
 	class func imageWithImage(image:UIImage, size:CGSize) -> (UIImage) {
@@ -107,6 +108,6 @@ class PicturesModel: NSObject {
 
 extension PicturesModel: NSFetchedResultsControllerDelegate {
 	func controllerDidChangeContent( controller:NSFetchedResultsController) {
-		onUpdate!( data: data()!)
+		onUpdate!( data: data())
 	}
 }

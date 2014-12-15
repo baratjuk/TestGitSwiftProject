@@ -10,8 +10,7 @@ import UIKit
 
 class TableView: UITableView {
 	
-	typealias OnAction = (parameters:AnyObject?) -> ()
-	var onAction : OnAction?
+	var onAction : TableActions.OnAction?
 	
 	private var mData = []
 	
@@ -56,6 +55,6 @@ extension TableView: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		var picture = mData[indexPath.row] as Picture
-		self.onAction!( parameters: picture)
+		self.onAction!( parameters: TableActions( type:TableActions.ActionType.Delete, picture:picture))
 	}
 }

@@ -13,9 +13,7 @@ class LabelTableViewCell: UITableViewCell {
 	@IBOutlet weak var pictureButton: UIButton!
 	@IBOutlet weak var label: UILabel!
 	
-	typealias OnAction = (parameters:AnyObject?) -> ()
-	
-	var onAction : OnAction?
+	var onAction : TableActions.OnAction?
 	var picture: Picture?
 	
     override func awakeFromNib() {
@@ -38,25 +36,13 @@ class LabelTableViewCell: UITableViewCell {
 	}
 	
 	@IBAction func onPicture(sender: AnyObject) {
-		onAction!( parameters:self)
+		onAction!( parameters: TableActions( type:TableActions.ActionType.Picture, picture:picture))
 	}
-
 }
 
 class AddTableViewCell: UITableViewCell {
 	
-//	override init() {
-//		super.init()
-//	}
-//
-//	required init(coder aDecoder: NSCoder) {
-//	    super.init(coder: aDecoder)
-//	}
-	
-	typealias OnAction = (parameters:AnyObject?) -> ()
-	
-	var onAction : OnAction?
-	var picture : Picture?
+	var onAction : TableActions.OnAction?
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -69,8 +55,6 @@ class AddTableViewCell: UITableViewCell {
 	}
 	
 	@IBAction func onAdd(sender: AnyObject) {
-		onAction!( parameters:self)
+		onAction!( parameters:TableActions( type:TableActions.ActionType.Add, picture:nil))
 	}
-
-	
 }
