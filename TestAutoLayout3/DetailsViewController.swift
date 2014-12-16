@@ -12,6 +12,7 @@ class DetailsViewController: UIViewController {
 	
 	@IBOutlet weak var pictureButton: UIButton!
 	@IBOutlet weak var textField: UITextField!
+	@IBOutlet weak var imageView: UIImageView!
 	
 	var originalPicture: UIImage?
 	
@@ -27,7 +28,8 @@ class DetailsViewController: UIViewController {
 		pictureButton.clipsToBounds = true;
 		pictureButton.layer.cornerRadius = self.pictureButton.bounds.size.height / 2.0
 		pictureButton.setBackgroundImage( pic, forState: UIControlState.Normal)
-		
+		imageView.image = picturesModel?.bigPicture()
+		textField.delegate = self
 	}
 
     override func didReceiveMemoryWarning() {
@@ -62,4 +64,9 @@ extension DetailsViewController: UIImagePickerControllerDelegate, UINavigationCo
 		dismissViewControllerAnimated(true, completion:nil)
 	}
 }
-
+extension DetailsViewController:UITextFieldDelegate {
+	func textFieldShouldReturn(textField: UITextField!) -> Bool {
+		textField.resignFirstResponder()
+		return true;
+	}
+}

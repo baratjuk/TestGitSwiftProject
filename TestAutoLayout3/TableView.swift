@@ -12,14 +12,14 @@ class TableView: UITableView {
 	
 	var onAction : TableActions.OnAction?
 	
-	private var mData = []
+	private var mData:[Picture] = []
 	
 	override func awakeFromNib() {
 		delegate = self
 		dataSource = self
 	}
 	
-	func data(data: [AnyObject]) {
+	func data(data: [Picture]) {
 		mData = data
 		reloadData()
 	}
@@ -38,9 +38,9 @@ extension TableView: UITableViewDataSource {
 			}
 			return cell
 		}
-		var picture = mData[indexPath.row] as Picture
+		var picture = mData[indexPath.row]
 		let cell = tableView.dequeueReusableCellWithIdentifier("LabelTableViewCell") as LabelTableViewCell
-		cell.data( picture)
+		cell.data(picture)
 		cell.onAction = {parameters in
 			self.onAction!( parameters: parameters)
 		}
@@ -54,7 +54,7 @@ extension TableView: UITableViewDelegate {
 	}
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		var picture = mData[indexPath.row] as Picture
+		var picture = mData[indexPath.row]
 		self.onAction!( parameters: TableActions( type:TableActions.ActionType.Delete, picture:picture))
 	}
 }

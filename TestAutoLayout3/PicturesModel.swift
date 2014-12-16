@@ -58,6 +58,9 @@ class PicturesModel: NSObject {
 		picture.name = ""
 		picture.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( photoSize, photoSize)))
 		picture.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
+		let uuid = NSUUID().UUIDString
+		picture.picFileName = uuid
+		photoToFile(image, fileName:uuid)
 		save()
 	}
 	
@@ -66,14 +69,25 @@ class PicturesModel: NSObject {
 		if image != nil {
 			editPicture?.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( photoSize, photoSize)))
 			editPicture?.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
+			let fileName = editPicture?.picFileName
+			if(fileName != nil) {
+				photoToFile(image!, fileName:fileName!)
+			}
 		}
 		save()
 	}
 	
 	func deletePicture(picture:Picture) {
+		let fileName = picture.picFileName
+		deletePhoto(fileName)
 		let managedObjectContext = context()
 		managedObjectContext.deleteObject(picture)
 		save()
+	}
+	
+	func bigPicture() -> UIImage?{
+		let fileName = editPicture?.picFileName
+		return pfotoFromFile(fileName!)
 	}
 
 	private func context() -> NSManagedObjectContext! {
@@ -91,6 +105,32 @@ class PicturesModel: NSObject {
 	
 	private func data() -> [Picture] {
 		return fetchedResultsController?.fetchedObjects as [Picture]
+	}
+	
+	private func photoPath(name:NSString) -> NSString {
+		let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+		let destinationPath = documentsPath.stringByAppendingPathComponent("\(name).jpg")
+		return destinationPath
+	}
+	
+	private func photoToFile(image:UIImage, fileName:NSString) {
+		let destinationPath = photoPath(fileName)
+		UIImageJPEGRepresentation(image,1.0).writeToFile(destinationPath, atomically: true)
+	}
+	
+	private func pfotoFromFile(fileName:NSString) -> UIImage? {
+		let destinationPath = photoPath(fileName)
+		let image = UIImage(contentsOfFile: destinationPath)
+		return image
+	}
+	
+	private func deletePhoto(fileName:NSString) {
+		let destinationPath = photoPath(fileName)
+		var e:NSError?
+		var ok:Bool = NSFileManager.defaultManager().removeItemAtPath(destinationPath, error: &e)
+		if e != nil {
+			println("Delete error: \(e!.localizedDescription)")
+		}
 	}
 	
 	class func imageWithImage(image:UIImage, size:CGSize) -> (UIImage) {

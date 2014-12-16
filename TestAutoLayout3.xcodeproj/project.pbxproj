@@ -19,8 +19,8 @@
 		70AC2A841A39CDC700D2193B /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A831A39CDC700D2193B /* TableViewCells.swift */; };
 		70AC2A8B1A39F5CF00D2193B /* PicturesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A8A1A39F5CF00D2193B /* PicturesModel.swift */; };
 		70AC2A901A3AF48D00D2193B /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A8F1A3AF48D00D2193B /* DetailsViewController.swift */; };
-		70AC2A931A3B1BF000D2193B /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A921A3B1BF000D2193B /* Picture.m */; };
 		70AC2A951A3EF4AA00D2193B /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A941A3EF4AA00D2193B /* TableActions.swift */; };
+		70AC2A981A3F4BCC00D2193B /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AC2A971A3F4BCC00D2193B /* Picture.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +51,9 @@
 		70AC2A851A39F56100D2193B /* TestAutoLayout3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestAutoLayout3-Bridging-Header.h"; sourceTree = "<group>"; };
 		70AC2A8A1A39F5CF00D2193B /* PicturesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesModel.swift; sourceTree = "<group>"; };
 		70AC2A8F1A3AF48D00D2193B /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		70AC2A911A3B1BF000D2193B /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
-		70AC2A921A3B1BF000D2193B /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
 		70AC2A941A3EF4AA00D2193B /* TableActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableActions.swift; sourceTree = "<group>"; };
+		70AC2A961A3F4BCC00D2193B /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
+		70AC2A971A3F4BCC00D2193B /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,8 +150,8 @@
 			children = (
 				70AC2A5D1A38A1BC00D2193B /* TestAutoLayout3.xcdatamodeld */,
 				70AC2A8A1A39F5CF00D2193B /* PicturesModel.swift */,
-				70AC2A911A3B1BF000D2193B /* Picture.h */,
-				70AC2A921A3B1BF000D2193B /* Picture.m */,
+				70AC2A961A3F4BCC00D2193B /* Picture.h */,
+				70AC2A971A3F4BCC00D2193B /* Picture.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -260,9 +260,9 @@
 				70AC2A611A38A1BC00D2193B /* ViewController.swift in Sources */,
 				70AC2A901A3AF48D00D2193B /* DetailsViewController.swift in Sources */,
 				70AC2A841A39CDC700D2193B /* TableViewCells.swift in Sources */,
-				70AC2A931A3B1BF000D2193B /* Picture.m in Sources */,
 				70AC2A821A39CDA800D2193B /* TableView.swift in Sources */,
 				70AC2A5F1A38A1BC00D2193B /* TestAutoLayout3.xcdatamodeld in Sources */,
+				70AC2A981A3F4BCC00D2193B /* Picture.m in Sources */,
 				70AC2A5C1A38A1BC00D2193B /* AppDelegate.swift in Sources */,
 				70AC2A8B1A39F5CF00D2193B /* PicturesModel.swift in Sources */,
 				70AC2A7F1A39CA5B00D2193B /* TableViewController.swift in Sources */,
