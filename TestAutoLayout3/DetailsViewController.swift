@@ -12,26 +12,37 @@ class DetailsViewController: UIViewController {
 	
 	@IBOutlet weak var pictureButton: UIButton!
 	@IBOutlet weak var textField: UITextField!
-	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var imageView: RoundCornerImageView!
+
 	
 	var originalPicture: UIImage?
+	var buttonPicture: UIImage?
 	
 	var picturesModel:PicturesModel?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+
 		picturesModel = PicturesModel.sharedInstance
+		originalPicture = picturesModel?.bigPicture()
 		let picture = picturesModel?.editPicture
 		textField.text = picture?.name
-		let pic = UIImage(data: picture?.bigPic as NSData)!
+		buttonPicture = UIImage(data: picture?.bigPic as NSData)!
+		textField.delegate = self
+		
+//		imageView.clipsToBounds = true;
+//		imageView.layer.cornerRadius = 20.0
+		
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
 		pictureButton.clipsToBounds = true;
 		pictureButton.layer.cornerRadius = self.pictureButton.bounds.size.height / 2.0
-		pictureButton.setBackgroundImage( pic, forState: UIControlState.Normal)
-		imageView.image = picturesModel?.bigPicture()
-		textField.delegate = self
+		pictureButton.setBackgroundImage( buttonPicture, forState: UIControlState.Normal)
+		imageView.image = originalPicture
+		imageView.roundCorners( UIRectCorner.BottomLeft | UIRectCorner.BottomRight, radius: 20.0)
 	}
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,8 +66,8 @@ class DetailsViewController: UIViewController {
 extension DetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 	func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
 		originalPicture = image
-		let pic = PicturesModel.imageWithImage(image, size: CGSizeMake( 86.0, 86.0))
-		pictureButton.setBackgroundImage( pic, forState: UIControlState.Normal)
+		let size = PicturesModel.bigPhotoSize
+		buttonPicture = PicturesModel.imageWithImage(image, size: CGSizeMake( size, size))
 		dismissViewControllerAnimated(true, completion:nil)
 	}
 	

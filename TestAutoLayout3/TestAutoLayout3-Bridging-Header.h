@@ -3,3 +3,5 @@
 //
 
 #import "Picture.h"
+#import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"

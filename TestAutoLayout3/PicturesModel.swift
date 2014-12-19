@@ -14,8 +14,8 @@ private let _sharedInstance = PicturesModel()
 class PicturesModel: NSObject {
 	typealias OnUpdate = (data:[Picture]) -> ()
 
-	let photoSize:CGFloat = 43.0
-	let bigPhotoSize:CGFloat = 86.0
+//	let photoSize:CGFloat = 43.0
+//	let bigPhotoSize:CGFloat = 86.0
 	
 	var editPicture:Picture?
 	var onUpdate : OnUpdate?
@@ -24,6 +24,26 @@ class PicturesModel: NSObject {
 	
 	class var sharedInstance : PicturesModel {
 		return _sharedInstance
+	}
+	
+	class var photoSize:CGFloat {
+		return 43.0
+	}
+	
+	class var bigPhotoSize:CGFloat {
+		return 86.0
+	}
+	
+	class func imageWithImage(image:UIImage, size:CGSize) -> (UIImage) {
+		var scale = max(size.width/image.size.width, size.height/image.size.height);
+		var width = image.size.width * scale;
+		var height = image.size.height * scale;
+		var imageRect = CGRectMake((size.width - width)/2.0, (size.height - height)/2.0, width, height)
+		UIGraphicsBeginImageContextWithOptions(size, false, 0)
+		image.drawInRect(imageRect)
+		var newImage = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+		return newImage;
 	}
 	
 	func selectData( predicate: NSPredicate?) {
@@ -56,7 +76,9 @@ class PicturesModel: NSObject {
 		let picture = NSEntityDescription.insertNewObjectForEntityForName( NSStringFromClass(Picture), inManagedObjectContext: managedObjectContext) as Picture
 		picture.date = NSDate()
 		picture.name = ""
+		let photoSize = PicturesModel.photoSize
 		picture.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( photoSize, photoSize)))
+		let bigPhotoSize = PicturesModel.bigPhotoSize
 		picture.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
 		let uuid = NSUUID().UUIDString
 		picture.picFileName = uuid
@@ -67,7 +89,9 @@ class PicturesModel: NSObject {
 	func edit(image:UIImage?, name:NSString) {
 		editPicture?.name = name
 		if image != nil {
+			let photoSize = PicturesModel.photoSize
 			editPicture?.pic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( photoSize, photoSize)))
+			let bigPhotoSize = PicturesModel.bigPhotoSize
 			editPicture?.bigPic = UIImagePNGRepresentation( PicturesModel.imageWithImage(image!, size:CGSizeMake( bigPhotoSize, bigPhotoSize)))
 			let fileName = editPicture?.picFileName
 			if(fileName != nil) {
@@ -131,18 +155,6 @@ class PicturesModel: NSObject {
 		if e != nil {
 			println("Delete error: \(e!.localizedDescription)")
 		}
-	}
-	
-	class func imageWithImage(image:UIImage, size:CGSize) -> (UIImage) {
-		var scale = max(size.width/image.size.width, size.height/image.size.height);
-		var width = image.size.width * scale;
-		var height = image.size.height * scale;
-		var imageRect = CGRectMake((size.width - width)/2.0, (size.height - height)/2.0, width, height)
-		UIGraphicsBeginImageContextWithOptions(size, false, 0)
-		image.drawInRect(imageRect)
-		var newImage = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-		return newImage;
 	}
 }
 
